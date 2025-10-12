@@ -3,7 +3,7 @@ public:
   bool isPossibleToCutPath(vector<vector<int>> &grid) {
     int m = grid.size(), n = grid[0].size();
 
-    auto dfs = [&](auto &self, int i, int j) -> bool {
+    auto dfs = [&](auto &&self, int i, int j) -> bool {
       if (i == m - 1 && j == n - 1)
         return true;
       grid[i][j] = 0;
