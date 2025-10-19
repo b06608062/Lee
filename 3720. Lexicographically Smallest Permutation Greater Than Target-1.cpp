@@ -49,7 +49,6 @@ public:
     for (int i = 0; i < 26; ++i)
       if (cnt[i])
         remain += string(cnt[i], char(i + 'a'));
-    sort(remain.begin(), remain.end());
     res += remain;
 
     return res == target ? (next_permutation(res.begin(), res.end()) ? res : "")
