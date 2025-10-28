@@ -11,12 +11,12 @@ public:
 
     int res = 0;
     for (int i = 1; i <= n; ++i)
-      if (target - pref[i - 1] == 0 && nums[i - 1] == 0)
-        if (sum % 2 == 0)
-          res += 2;
-        else
+      if (nums[i - 1] == 0)
+        if (sum % 2 == 0) {
+          if (target - pref[i - 1] == 0)
+            res += 2;
+        } else if (abs(sum - pref[i - 1] * 2) == 1)
           res += 1;
-
     return res;
   }
 };
