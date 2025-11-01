@@ -16,7 +16,7 @@ public:
     vector<int> arr(sset.begin(), sset.end());
     int n = arr.size();
 
-    int cnt[3500] = {0};
+    int cnt[3500];
     int left = 0, right = 0, cur = 0, minL = INT_MAX;
     int start, end;
     while (right < n) {

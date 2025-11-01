@@ -4,7 +4,7 @@ public:
     if (s.size() != t.size())
       return false;
 
-    int count[26] = {0};
+    int count[26];
     for (char c : s)
       count[c - 'a']++;
 

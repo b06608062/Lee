@@ -3,7 +3,7 @@ public:
   long long minOperations(vector<int> &nums1, vector<int> &nums2) {
     int n = nums1.size();
 
-    int diff[100001] = {0};
+    int diff[100001];
 
     long long res = 0;
     for (int i = 0; i < n; ++i) {
@@ -16,7 +16,7 @@ public:
         diff[x2 + 1]--;
     }
 
-    int seen[100001] = {0};
+    int seen[100001];
     int cur = 0;
     for (int i = 1; i <= 100000; ++i) {
       cur += diff[i];

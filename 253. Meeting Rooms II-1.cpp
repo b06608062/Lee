@@ -14,7 +14,7 @@
 class Solution {
 public:
   int minMeetingRooms(vector<Interval> &intervals) {
-    int diff[1000001] = {0};
+    int diff[1000001];
     for (auto [start, end] : intervals) {
       diff[start]++;
       diff[end]--;

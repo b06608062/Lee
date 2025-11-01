@@ -3,7 +3,7 @@ public:
   int characterReplacement(string s, int k) {
     int n = s.size();
 
-    int freq[26] = {0};
+    int freq[26];
 
     int maxFreq = 0;
     int i = 0;

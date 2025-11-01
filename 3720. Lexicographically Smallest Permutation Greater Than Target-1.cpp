@@ -3,7 +3,7 @@ public:
   string lexGreaterPermutation(string s, string target) {
     int n = s.size();
 
-    int cnt[26] = {0};
+    int cnt[26];
     for (auto ch : s)
       cnt[ch - 'a']++;
 

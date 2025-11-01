@@ -1,7 +1,7 @@
 class Solution {
 public:
   string reorganizeString(string s) {
-    int freq[26] = {0};
+    int freq[26];
     for (auto ch : s)
       freq[ch - 'a']++;
 

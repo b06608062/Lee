@@ -3,7 +3,7 @@ public:
   string lexGreaterPermutation(string s, string target) {
     int n = s.size();
 
-    int cnt[26] = {0};
+    int cnt[26];
     for (int i = 0; i < n; ++i) {
       cnt[s[i] - 'a']++;
       cnt[target[i] - 'a']--;
