@@ -1,3 +1,5 @@
+// Segment Tree
+
 class NumArray {
 public:
   int n;
