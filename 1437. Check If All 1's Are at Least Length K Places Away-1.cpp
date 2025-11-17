@@ -6,7 +6,6 @@ public:
     int last = -k - 1;
     for (int i = 0; i < n; ++i) {
       if (nums[i] == 1) {
-        cout << last << " " << i << endl;
         if (i - last <= k)
           return false;
         last = i;
