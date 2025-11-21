@@ -48,3 +48,59 @@ public:
     return res;
   }
 };
+
+struct DSU {
+  vector<int> p, sz;
+  DSU(int n) : p(n), sz(n, 1) { iota(p.begin(), p.end(), 0); }
+  int find(int x) { return x == p[x] ? x : p[x] = find(p[x]); }
+  bool unite(int a, int b) {
+    a = find(a);
+    b = find(b);
+    if (a == b)
+      return false;
+    if (sz[a] < sz[b])
+      swap(a, b);
+    p[b] = a, sz[a] += sz[b];
+    return true;
+  }
+};
+
+class Solution {
+public:
+  vector<vector<string>> accountsMerge(vector<vector<string>> &accounts) {
+    int n = accounts.size();
+    DSU dsu(n);
+    for (int i = 0; i < n; ++i) {
+      auto &acci = accounts[i];
+      unordered_set<string> maili(acci.begin() + 1, acci.end());
+      for (int j = i + 1; j < n; ++j) {
+        auto &accj = accounts[j];
+        if (acci[0] == accj[0]) {
+          int sz = accj.size();
+          for (int k = 1; k < sz; ++k)
+            if (maili.count(accj[k])) {
+              dsu.unite(i, j);
+              break;
+            }
+        }
+      }
+    }
+
+    unordered_map<int, set<string>> groups;
+    for (int i = 0; i < n; ++i) {
+      int rooti = dsu.find(i);
+      auto &acci = accounts[i];
+      int sz = acci.size();
+      for (int k = 1; k < sz; ++k)
+        groups[rooti].insert(acci[k]);
+    }
+
+    vector<vector<string>> res;
+    for (auto &[k, v] : groups) {
+      res.push_back({accounts[k][0]});
+      res.back().insert(res.back().end(), v.begin(), v.end());
+    }
+
+    return res;
+  }
+};

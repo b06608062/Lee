@@ -1,26 +1,12 @@
 class Solution {
 public:
-  vector<unordered_set<int>> adj;
+  vector<vector<int>> adj;
   vector<int> vis;
   vector<vector<string>> accountsMerge(vector<vector<string>> &accounts) {
     int n = accounts.size();
 
-    adj = vector<unordered_set<int>>(n);
+    adj = vector<vector<int>>(n);
     vis = vector<int>(n, 0);
-
-    // unordered_map<string, vector<int>> umap; // mail, idxs
-    // for (int i = 0; i < n; ++i) {
-    //   auto &acc = accounts[i];
-    //   for (int j = 1; j < acc.size(); ++j)
-    //     umap[acc[j]].push_back(i);
-    // }
-
-    // for (auto &[_, idxs] : umap)
-    //   for (int i = 0; i < idxs.size(); ++i)
-    //     for (int j = i + 1; j < idxs.size(); ++j) {
-    //       adj[idxs[i]].insert(idxs[j]);
-    //       adj[idxs[j]].insert(idxs[i]);
-    //     }
 
     for (int i = 0; i < n; ++i) {
       auto &acc1 = accounts[i];
@@ -31,8 +17,8 @@ public:
           continue;
         for (int k = 1; k < acc2.size(); ++k)
           if (uset.count(acc2[k])) {
-            adj[i].insert(j);
-            adj[j].insert(i);
+            adj[i].push_back(j);
+            adj[j].push_back(i);
             break;
           }
       }
