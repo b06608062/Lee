@@ -6,7 +6,7 @@ public:
     vector<int> dist(n + 1, maxDelay);
 
     dist[k] = 0;
-    for (int i = 1; i < n; ++i) {
+    for (int i = 1; i < n - 1; ++i) {
       bool updated = false;
       for (auto &t : times) {
         int u = t[0], v = t[1];

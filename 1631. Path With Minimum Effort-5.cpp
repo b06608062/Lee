@@ -19,7 +19,7 @@ class Solution {
 public:
   int minimumEffortPath(vector<vector<int>> &heights) {
     int m = heights.size(), n = heights[0].size();
-    if (m == 1 && n == 1)
+    if (m * n == 1)
       return 0;
 
     vector<vector<int>> edges; // cost, u, v

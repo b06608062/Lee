@@ -84,3 +84,52 @@ public:
     return diameter; // 直徑 = 最長路徑的邊數
   }
 };
+
+class Solution {
+public:
+  int treeDiameter(int n, vector<vector<int>> &edges) {
+    if (n == 1)
+      return 0;
+
+    vector<vector<int>> adj(n);
+    for (auto &e : edges) {
+      adj[e[0]].push_back(e[1]);
+      adj[e[1]].push_back(e[0]);
+    }
+
+    auto bfs = [&](int start) -> pair<int, int> {
+      vector<int> dist(n, 0);
+      vector<bool> vis(n, false);
+      queue<int> q;
+
+      q.push(start);
+      vis[start] = true;
+      dist[start] = 0;
+
+      int far = start;
+      while (!q.empty()) {
+        int u = q.front();
+        q.pop();
+        for (int v : adj[u]) {
+          if (!vis[v]) { // 第一次拜訪 v
+            vis[v] = true;
+            dist[v] = dist[u] + 1;
+            q.push(v);
+            if (dist[v] > dist[far]) {
+              far = v;
+            }
+          }
+        }
+      }
+      return {far, dist[far]};
+    };
+
+    // 第一次 BFS：從 0 找到一個直徑端點 u
+    auto [u, _] = bfs(0);
+
+    // 第二次 BFS：從 u 出發，找到另一端點 v，距離就是直徑長度
+    auto [v, diameter] = bfs(u);
+
+    return diameter; // 直徑 = 最長路徑的邊數
+  }
+};
