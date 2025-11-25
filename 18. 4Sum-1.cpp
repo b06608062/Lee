@@ -4,9 +4,8 @@ public:
     int n = nums.size();
 
     vector<vector<int>> res;
-    if (n < 4) {
+    if (n < 4)
       return res;
-    }
 
     sort(nums.begin(), nums.end());
 
