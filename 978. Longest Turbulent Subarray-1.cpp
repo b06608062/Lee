@@ -1,8 +1,9 @@
 class Solution {
 public:
   int maxTurbulenceSize(vector<int> &arr) {
+    int n = arr.size();
     int up = 1, down = 1, res = 1;
-    for (int i = 1; i < arr.size(); ++i) {
+    for (int i = 1; i < n; ++i) {
       if (arr[i] > arr[i - 1]) {
         up = down + 1;
         down = 1;
