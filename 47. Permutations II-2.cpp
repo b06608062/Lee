@@ -32,3 +32,39 @@ public:
     }
   }
 };
+
+class Solution {
+public:
+  vector<vector<int>> res;
+  vector<int> path;
+  vector<int> used;
+
+  vector<vector<int>> permuteUnique(vector<int> &nums) {
+    sort(nums.begin(), nums.end());
+    used = vector<int>(nums.size(), 0);
+    helper(nums);
+    return res;
+  }
+
+  void helper(vector<int> &nums) {
+    int n = nums.size();
+    if (path.size() == n) {
+      res.push_back(path);
+      return;
+    }
+
+    for (int i = 0; i < n; ++i) {
+      if (used[i])
+        continue;
+
+      if (i > 0 && nums[i] == nums[i - 1] && !used[i - 1])
+        continue;
+
+      used[i] = 1;
+      path.push_back(nums[i]);
+      helper(nums);
+      path.pop_back();
+      used[i] = 0;
+    }
+  }
+};
