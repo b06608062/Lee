@@ -6,7 +6,6 @@ public:
     vector<vector<bool>> dp(m + 1, vector<bool>(n + 1, false));
 
     dp[0][0] = true;
-
     for (int i = 2; i <= m; ++i)
       if (p[i - 1] == '*')
         dp[i][0] = dp[i - 2][0];
