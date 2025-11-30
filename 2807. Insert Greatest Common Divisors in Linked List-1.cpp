@@ -16,3 +16,16 @@ public:
     return head;
   }
 };
+
+class Solution {
+public:
+  ListNode *insertGreatestCommonDivisors(ListNode *head) {
+    ListNode *cur = head;
+    while (cur && cur->next) {
+      cur->next = new ListNode(gcd(cur->val, cur->next->val), cur->next);
+      cur = cur->next->next;
+    }
+
+    return head;
+  }
+};

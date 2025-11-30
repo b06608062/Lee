@@ -9,15 +9,20 @@ public:
       x >>= 1;
     }
 
-    long long N = n - 1;
-    for (int i = 0, j = 0; i < 64; ++i)
-      if (!X[i])
-        X[i] = (N >> j++) & 1;
+    n--;
+    i = 0;
+    while (n) {
+      if (!X[i]) {
+        X[i] = n & 1;
+        n >>= 1;
+      }
+      i++;
+    }
 
     long long res = 0;
     for (int i = 63; i >= 0; --i) {
       res <<= 1;
-      res += X[i];
+      res |= X[i];
     }
 
     return res;

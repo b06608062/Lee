@@ -21,3 +21,27 @@ public:
     return res;
   }
 };
+
+class Solution {
+public:
+  vector<int> partitionLabels(string s) {
+    int n = s.size();
+    unordered_map<int, int> umap;
+    for (int i = 0; i < n; ++i)
+      umap[s[i]] = i;
+
+    vector<int> res;
+    int start = 0, cur = 0;
+    for (int i = 0; i < n; ++i) {
+      if (i > cur) {
+        res.push_back(i - start);
+        cur = i;
+        start = i;
+      }
+      cur = max(cur, umap[s[i]]);
+    }
+
+    res.push_back(n - start);
+    return res;
+  }
+};
