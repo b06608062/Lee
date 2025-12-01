@@ -21,3 +21,20 @@ public:
     helper(root->right);
   }
 };
+
+class Solution {
+public:
+  int kthSmallest(TreeNode *root, int k) { return hepler(root, k); }
+
+  int hepler(TreeNode *root, int &k) {
+    if (!root)
+      return -1;
+    int left = hepler(root->left, k);
+    if (left >= 0)
+      return left;
+    if (--k == 0) {
+      return root->val;
+    }
+    return hepler(root->right, k);
+  }
+};
