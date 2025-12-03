@@ -1,3 +1,7 @@
+// mark
+// 1890
+// Segment Tree + Divide and Conquer
+// O(n log n)
 class Solution {
 public:
   int n;

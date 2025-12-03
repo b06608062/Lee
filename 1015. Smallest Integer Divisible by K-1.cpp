@@ -1,3 +1,6 @@
+// mark
+// 1875
+// 鴿籠原理 + MOD
 class Solution {
 public:
   int smallestRepunitDivByK(int k) {

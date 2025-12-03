@@ -1,3 +1,6 @@
+// mark
+// 1762
+// DP + MOD 狀態壓縮 + Subset Sum
 class Solution {
 public:
   int maxSumDivThree(vector<int> &nums) {

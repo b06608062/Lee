@@ -1,3 +1,6 @@
+// mark
+// 1583
+// 2D 差分 + 2D 前綴和
 class Solution {
 public:
   vector<vector<int>> rangeAddQueries(int n, vector<vector<int>> &queries) {

@@ -1,3 +1,6 @@
+// mark
+// 2379
+// 貪心 + 右端點排序
 class Solution {
 public:
   int intersectionSizeTwo(vector<vector<int>> &intervals) {

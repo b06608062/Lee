@@ -1,3 +1,6 @@
+// mark
+// 2265
+// binary search + greedy
 class Solution {
 public:
   long long maxRunTime(int n, vector<int> &batteries) {

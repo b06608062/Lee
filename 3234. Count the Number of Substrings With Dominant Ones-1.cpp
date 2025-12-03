@@ -1,3 +1,6 @@
+// mark
+// 2557
+// Two-pointer + Prefix Zero Recording + √n 剪枝
 class Solution {
 public:
   int numberOfSubstrings(string s) {
@@ -27,8 +30,9 @@ public:
 
         // 子串起點 l 可選的範圍是 [p+1, q]
         // 需滿足 cnt1 + (q - l) >= cnt0 * cnt0
-        // 轉換後得 l >= q - max(cnt0*cnt0 - cnt1, 0)
-        // 在合法範圍 [p+1, q] 內計算出可行的子串數量
+        // 轉換後得 l >= q - max(cnt0 * cnt0 - cnt1, 0)
+        // lmax = q - max(cnt0 * cnt0 - cnt1, 0)
+        // [p + 1, lmax] 的長度即為可行子串數量
         res += max(q - max(cnt0 * cnt0 - cnt1, 0) - (p + 1) + 1, 0);
       }
     }

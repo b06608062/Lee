@@ -1,3 +1,6 @@
+// mark
+// 1952
+// 三維 DP + MOD 狀態壓縮
 class Solution {
 public:
   int numberOfPaths(vector<vector<int>> &grid, int k) {

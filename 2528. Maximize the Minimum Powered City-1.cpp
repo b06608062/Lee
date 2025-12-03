@@ -1,3 +1,6 @@
+// mark
+// 2236
+// Binary Search + Diff Array + Greedy
 class Solution {
 public:
   long long maxPower(vector<int> &stations, int r, int k) {
