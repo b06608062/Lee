@@ -1,3 +1,7 @@
+// mark
+// 逆向思維 反過來從終點往起點找 + DFS
+// 也可用海平面上升解
+// O(mn)
 class Solution {
 public:
   int m, n;

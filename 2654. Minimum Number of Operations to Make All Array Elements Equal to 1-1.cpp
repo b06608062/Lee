@@ -1,7 +1,7 @@
 // mark
 // 1929
-// minimum subarray with gcd 1 + 枚舉 + Greedy
-// 無法用 Silding Window，因為 gcd 不具備可逆性
+// 枚舉 Minimum Subarray with GCD 1
+// 無法用 Sliding Window，因為 GCD 不具備可逆性
 class Solution {
 public:
   int minOperations(vector<int> &nums) {

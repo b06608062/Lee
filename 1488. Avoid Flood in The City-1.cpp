@@ -1,3 +1,6 @@
+// mark
+// 1974
+// 延遲判斷 + Greedy 找最早的合法點 + 有序集合
 class Solution {
 public:
   vector<int> avoidFlood(vector<int> &rains) {

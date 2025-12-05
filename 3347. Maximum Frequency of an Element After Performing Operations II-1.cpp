@@ -1,3 +1,6 @@
+// mark
+// 2156
+// 分差掃描 + 值域壓縮
 class Solution {
 public:
   int maxFrequency(vector<int> &nums, int k, int numOperations) {

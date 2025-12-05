@@ -1,6 +1,6 @@
 // mark
 // 1890
-// monotonic stack
+// Monotonic Stack
 class Solution {
 public:
   int minOperations(vector<int> &nums) {

@@ -1,3 +1,6 @@
+// mark
+// 逆向思維 海平面上升 + 最小堆 + BFS
+// O(mn log(mn))
 struct Node {
   int h, i, j;
 };

@@ -1,6 +1,6 @@
 // mark
 // 1580
-// 組合數計算 + prefix
+// 組合數計算 + Prefix Sum
 class Solution {
 public:
   int countTrapezoids(vector<vector<int>> &points) {

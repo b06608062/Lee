@@ -3,7 +3,7 @@ public:
   int maxDistinctElements(vector<int> &nums, int k) {
     sort(nums.begin(), nums.end());
 
-    int cur = nums[0] - k, res = 0;
+    int cur = INT_MIN, res = 0;
     for (auto x : nums) {
       if (cur >= x - k && cur <= x + k)
         cur++, res++;

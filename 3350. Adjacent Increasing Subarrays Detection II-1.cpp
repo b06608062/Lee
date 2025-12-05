@@ -1,3 +1,6 @@
+// mark
+// DP + Binary Search
+// 1600
 class Solution {
 public:
   int maxIncreasingSubarrays(vector<int> &nums) {
@@ -10,7 +13,7 @@ public:
         ics[i] = ics[i - 1] + 1;
 
     auto validK = [&](int k) {
-      for (int i = 0; i + k < n; ++i)
+      for (int i = k - 1; i + k < n; ++i)
         if (ics[i] >= k && ics[i + k] >= k)
           return true;
       return false;

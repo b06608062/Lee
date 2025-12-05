@@ -1,7 +1,10 @@
+// mark
+// 2097
+// Binary Search + BFS
 class Solution {
 public:
-  int n;
   vector<int> dirs{0, 1, 0, -1, 0};
+  int n;
   int swimInWater(vector<vector<int>> &grid) {
     n = grid.size();
 
@@ -17,8 +20,8 @@ public:
     return l;
   }
 
-  bool bfs(vector<vector<int>> &grid, int limit) {
-    if (grid[0][0] > limit)
+  bool bfs(vector<vector<int>> &grid, int h) {
+    if (grid[0][0] > h)
       return false;
 
     vector<vector<int>> vis(n, vector<int>(n, 0));
@@ -34,7 +37,7 @@ public:
       for (int k = 0; k < 4; ++k) {
         int ni = i + dirs[k], nj = j + dirs[k + 1];
         if (ni < 0 || ni >= n || nj < 0 || nj >= n || vis[ni][nj] ||
-            grid[ni][nj] > limit)
+            grid[ni][nj] > h)
           continue;
         vis[ni][nj] = 1;
         q.push({ni, nj});

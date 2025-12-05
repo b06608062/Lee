@@ -1,3 +1,6 @@
+// mark
+// 3039
+// 字串 + 貪心 + 前後綴 DP 狀態壓縮
 struct Node {
   int seg, mask, cnt;
 };
@@ -40,6 +43,7 @@ public:
 
     // pref[i] = s[0 ... i - 1]
     // suff[i] = s[i + 1 ... n - 1]
+    // 估算最多可能切出多少段
     int res = 0;
     for (int i = 0; i < n; ++i) {
       auto [segL, maskL, cntL] = pref[i];

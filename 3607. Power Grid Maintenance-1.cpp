@@ -1,5 +1,6 @@
 // mark
 // 1700
+// DSU + Umap + Set
 struct DSU {
   vector<int> p, sz;
   DSU(int n) : p(n), sz(n, 1) { iota(p.begin(), p.end(), 0); }

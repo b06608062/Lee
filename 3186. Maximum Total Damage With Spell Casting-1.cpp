@@ -1,3 +1,6 @@
+// mark
+// 1841
+// DP 固定範圍轉移 + 座標壓縮
 class Solution {
 public:
   long long maximumTotalDamage(vector<int> &power) {

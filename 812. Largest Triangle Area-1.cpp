@@ -1,3 +1,5 @@
+// mark
+// Brute Force 枚舉三角形 + 向量叉積計算面積
 class Solution {
 public:
   double largestTriangleArea(vector<vector<int>> &points) {

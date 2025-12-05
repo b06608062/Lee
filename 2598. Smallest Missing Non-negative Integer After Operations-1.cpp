@@ -12,7 +12,7 @@ public:
         return i;
       else {
         if (minNum == -1 || umap[i] < minFreq) {
-          minFreq = min(minFreq, umap[i]);
+          minFreq = umap[i];
           minNum = i;
         }
       }

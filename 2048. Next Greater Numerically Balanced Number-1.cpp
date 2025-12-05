@@ -1,3 +1,6 @@
+// mark
+// 1734
+// Backtracking + 數位枚舉
 class Solution {
 public:
   set<int> sset;

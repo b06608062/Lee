@@ -1,3 +1,6 @@
+// mark
+// 1865
+// 枚舉 + Binary Search 找範圍
 class Solution {
 public:
   int maxFrequency(vector<int> &nums, int k, int numOperations) {

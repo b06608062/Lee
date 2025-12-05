@@ -1,3 +1,6 @@
+// mark
+// 1974
+// Greedy + DSU (next available dry day)
 struct DSU {
   vector<int> p;
   DSU(vector<int> &rains, int n) : p(n + 1) {

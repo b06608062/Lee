@@ -1,3 +1,7 @@
+// mark
+// 1341
+// Sorting + Greedy
+// a + b > c 才能形成三角形
 class Solution {
 public:
   int largestPerimeter(vector<int> &nums) {

@@ -1,3 +1,6 @@
+// mark
+// 1872
+// Stack -> Greedy 考慮前後關係
 class Solution {
 public:
   int minNumberOperations(vector<int> &target) {

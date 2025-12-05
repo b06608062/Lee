@@ -1,3 +1,6 @@
+// mark
+// 2156
+// Sliding Window 維護可用範圍
 class Solution {
 public:
   int maxFrequency(vector<int> &nums, int k, int numOperations) {
@@ -22,6 +25,7 @@ public:
     if (res >= numOperations)
       return res;
 
+    // b − k ≤ a + k ⇒ b − a ≤ 2k
     left = 0;
     for (int i = 0; i < n; ++i) {
       int x = nums[i];

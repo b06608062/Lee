@@ -1,3 +1,6 @@
+// mark
+// 區間 DP
+// 2130
 class Solution {
 public:
   int minScoreTriangulation(vector<int> &v) {

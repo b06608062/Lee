@@ -1,3 +1,6 @@
+// mark
+// 2097
+// Kruskal 變形
 struct DSU {
   vector<int> p, sz;
   DSU(int n) : p(n), sz(n, 1) { iota(p.begin(), p.end(), 0); }
