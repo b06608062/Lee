@@ -1,3 +1,7 @@
+// mark
+// 2093
+// 無向圖判斷每個邊是否在最短路徑上 正向+反向 Dijkstra
+// 如果是有向圖 distN 要用反向圖跑 Dijkstra
 class Solution {
 public:
   const int INF = INT_MAX;
@@ -11,19 +15,19 @@ public:
       adj[u].push_back({v, w});
       adj[v].push_back({u, w});
     }
-    auto dist1 = dijk(n, 0);
+    auto dist0 = dijk(n, 0);
     auto distN = dijk(n, n - 1);
     vector<bool> res(m, false);
-    int D = dist1[n - 1];
+    int D = dist0[n - 1];
     if (D == INF)
       return res;
 
     for (int i = 0; i < m; ++i) {
       auto &e = edges[i];
       int u = e[0], v = e[1], w = e[2];
-      if ((dist1[u] != INF && distN[v] != INF &&
-           dist1[u] + w + distN[v] == D) ||
-          (dist1[v] != INF && distN[u] != INF && dist1[v] + w + distN[u] == D))
+      if ((dist0[u] != INF && distN[v] != INF &&
+           dist0[u] + w + distN[v] == D) ||
+          (dist0[v] != INF && distN[u] != INF && dist0[v] + w + distN[u] == D))
         res[i] = true;
     }
 

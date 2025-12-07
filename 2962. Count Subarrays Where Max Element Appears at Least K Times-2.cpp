@@ -1,3 +1,6 @@
+// mark
+// 1701
+// 枚舉右邊界，累加合法左邊界數量
 class Solution {
 public:
   long long countSubarrays(vector<int> &nums, int k) {

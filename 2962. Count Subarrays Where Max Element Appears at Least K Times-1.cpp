@@ -1,3 +1,7 @@
+// mark
+// 1701
+// Prefix + HashMap 累加計數
+// 枚舉右邊界，統計目前合法子陣列數量（maxN 次數 >= k）
 class Solution {
 public:
   long long countSubarrays(vector<int> &nums, int k) {
@@ -10,12 +14,9 @@ public:
       if (x == maxN) {
         cur++;
         cnt += umap[cur - k];
-        res += cnt;
-        umap[cur]++;
-      } else {
-        res += cnt;
-        umap[cur]++;
       }
+      res += cnt;
+      umap[cur]++;
     }
 
     return res;

@@ -1,10 +1,13 @@
+// mark
+// 1712
+// 著色問題 + Greedy
 class Solution {
 public:
   vector<int> colors;
   vector<vector<int>> adj;
   vector<int> gardenNoAdj(int n, vector<vector<int>> &paths) {
     colors.assign(n + 1, 0);
-    adj = vector<vector<int>>(n + 1);
+    adj.resize(n + 1);
 
     for (auto &path : paths) {
       int u = path[0], v = path[1];

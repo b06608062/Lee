@@ -5,7 +5,7 @@ public:
     auto check = [&](long long T) -> bool {
       long long cnt = 0;
       for (auto r : ranks)
-        cnt += sqrt((double)T / r);
+        cnt += sqrt(T / r);
       return cnt >= cars;
     };
 

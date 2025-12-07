@@ -1,14 +1,13 @@
-struct Cand {
-  int val, cnt;
-};
-
+// mark
+// 1905
+// Coloring DP + 狀態壓縮 取前三高頻率顏色
 class Solution {
 public:
   int minimumOperations(vector<vector<int>> &grid) {
     int m = grid.size(), n = grid[0].size();
     const int INF = m * n;
 
-    vector<vector<Cand>> cand(n);
+    vector<array<pair<int, int>, 3>> cand(n);
     for (int col = 0; col < n; ++col) {
       int cnt[10] = {0};
       for (int row = 0; row < m; ++row)
@@ -19,21 +18,23 @@ public:
            [&](int a, int b) { return cnt[a] > cnt[b]; });
       for (int p = 0; p < 3; ++p) {
         int d = idx[p];
-        cand[col].push_back({d, cnt[d]});
+        if (cnt[d] == 0)
+          cand[col][p] = {-1, 0};
+        else
+          cand[col][p] = {d, cnt[d]};
       }
     }
 
     vector<vector<int>> dp(n, vector<int>(3, INF));
-
     for (int p = 0; p < 3; ++p)
-      dp[0][p] = m - cand[0][p].cnt;
+      dp[0][p] = m - cand[0][p].second;
 
     for (int col = 1; col < n; ++col) {
       for (int p = 0; p < 3; ++p) {
-        int v = cand[col][p].val;
-        int cost = m - cand[col][p].cnt;
+        int v = cand[col][p].first;
+        int cost = m - cand[col][p].second;
         for (int q = 0; q < 3; ++q) {
-          if (cand[col - 1][q].val == v)
+          if (cand[col - 1][q].first == v && v != -1)
             continue;
           dp[col][p] = min(dp[col][p], dp[col - 1][q] + cost);
         }

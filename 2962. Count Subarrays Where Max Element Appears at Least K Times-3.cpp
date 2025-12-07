@@ -1,3 +1,6 @@
+// mark
+// 1701
+// Sliding Window + 右指標擴張，左指標枚舉
 class Solution {
 public:
   long long countSubarrays(vector<int> &nums, int k) {
