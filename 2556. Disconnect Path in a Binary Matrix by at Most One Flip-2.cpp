@@ -1,3 +1,7 @@
+// mark
+// 2369
+// 先計算每個點是否在某條從左上到右下的路徑上
+// 把 gird 順時鐘旋轉 45 度，檢查去除首尾後每一層 i + j 是否只有一個點在路徑上
 class Solution {
 public:
   bool isPossibleToCutPath(vector<vector<int>> &grid) {

@@ -1,44 +1,50 @@
+// mark
+// 1982
+// BSF + 陣列拆分與合併模擬 + Set 去重
 class Solution {
 public:
   int minSplitMerge(vector<int> &nums1, vector<int> &nums2) {
-    if (nums1 == nums2)
-      return 0;
     int n = nums1.size();
 
-    set<vector<int>> sset{nums1};
+    if (nums1 == nums2)
+      return 0;
+
+    set<vector<int>> vis;
     queue<vector<int>> q;
 
+    int step = 0;
+    vis.insert(nums1);
     q.push(nums1);
-    int res = 0;
     while (!q.empty()) {
-      res++;
-      int size = q.size();
-      while (size--) {
+      step++;
+      int sz = q.size();
+      while (sz--) {
         auto cur = q.front();
         q.pop();
-        for (int len = 1; len < n; ++len) {
-          for (int L = 0; L + len - 1 <= n - 1; ++L) {
-            int R = L + len - 1;
-            vector<int> split, remain;
-            split.reserve(len);
-            remain.reserve(n - len);
+        for (int l = 0; l < n; ++l)
+          for (int r = l; r < n; ++r) {
+            if (r - l + 1 == n)
+              continue;
+            vector<int> split;
+            vector<int> remain;
             for (int i = 0; i < n; ++i)
-              if (i < L || i > R)
-                remain.push_back(cur[i]);
-              else
+              if (i >= l && i <= r)
                 split.push_back(cur[i]);
-            for (int j = 0; j <= remain.size(); ++j) {
-              if (j == L)
+              else
+                remain.push_back(cur[i]);
+            for (int i = 0; i <= remain.size(); ++i) {
+              if (i == l)
                 continue;
               auto nxt = remain;
-              nxt.insert(nxt.begin() + j, split.begin(), split.end());
+              nxt.insert(nxt.begin() + i, split.begin(), split.end());
               if (nxt == nums2)
-                return res;
-              if (sset.insert(nxt).second)
+                return step;
+              if (!vis.count(nxt)) {
+                vis.insert(nxt);
                 q.push(nxt);
+              }
             }
           }
-        }
       }
     }
 

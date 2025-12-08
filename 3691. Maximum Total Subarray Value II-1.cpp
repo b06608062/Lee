@@ -1,5 +1,7 @@
+// mark
+// 2469
 // Without RMQ
-
+// 區間拆分 + 堆 + 索引按照對應值排序雙指標
 class Solution {
 public:
   set<pair<int, int>> vis;

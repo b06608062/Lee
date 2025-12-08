@@ -1,3 +1,8 @@
+// mark
+// 1656
+// Sliding Window
+// 維護 Window Size 中 1 出現過的最高頻率
+// Window Size 只增不減，當元素種類很多時，可以避免每次都要重新計算頻率
 class Solution {
 public:
   int longestOnes(vector<int> &nums, int k) {

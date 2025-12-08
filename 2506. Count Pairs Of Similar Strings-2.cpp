@@ -1,3 +1,5 @@
+// 1335
+// Bitmask + Hash Map 計數
 class Solution {
 public:
   int similarPairs(vector<string> &words) {

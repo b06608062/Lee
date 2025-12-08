@@ -1,5 +1,6 @@
+// mark
+// 2469
 // Sparse Table + Keep K Largest
-
 struct Element {
   long long val;
   int i, j;

@@ -1,3 +1,6 @@
+// mark
+// 1500
+// 質數篩選 + 質因數分解模擬
 class Solution {
 public:
   int smallestValue(int n) {

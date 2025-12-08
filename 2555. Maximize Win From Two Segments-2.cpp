@@ -1,3 +1,6 @@
+// mark
+// 2081
+// Two Pointers + 預處理區間覆蓋數量 + 枚舉左區間起點加上最大右區間起點和
 class Solution {
 public:
   int maximizeWin(vector<int> &prizePositions, int k) {

@@ -1,3 +1,6 @@
+// mark
+// 2081
+// Two Pointers + 由左往右掃描，枚舉右區間終點同時維護左區間最大覆蓋數量
 class Solution {
 public:
   int maximizeWin(vector<int> &prizePositions, int k) {

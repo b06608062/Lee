@@ -1,5 +1,6 @@
-// Segment Tree
-
+// mark
+// 2469
+// Segment Tree Node + 最大值最小值區間查詢 + 最大值-最小值貪心取前 k 大
 struct Element {
   int val, i, j;
 };
