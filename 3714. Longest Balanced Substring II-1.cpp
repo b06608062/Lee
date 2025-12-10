@@ -1,3 +1,6 @@
+// mark
+// 2202
+// 最長平衡子字串 + 多維前綴差分 + 哈希表
 template <class T1, class T2> struct PairHash {
   size_t operator()(const pair<T1, T2> &p) const noexcept {
     size_t h1 = hash<T1>{}(p.first);
@@ -13,6 +16,7 @@ public:
   int longestBalanced(string s) {
     int n = s.size();
 
+    // 單一字元
     int start = 0, res = 1;
     for (int i = 1; i < n; ++i) {
       if (s[i] != s[i - 1])
@@ -20,6 +24,7 @@ public:
       res = max(res, i - start + 1);
     }
 
+    // 兩字元
     auto findTwo = [&](char x, char y, char z) -> void {
       int i = 0;
       while (i < n) {
@@ -37,10 +42,29 @@ public:
       }
     };
 
+    auto findTwo = [&](char x, char y, char z) -> void {
+      unordered_map<pair<int, int>, int, PairHash<int, int>> umap;
+      int diff = 0, cntZ = 0;
+      umap[{0, 0}] = -1;
+      for (int i = 0; i < n; ++i) {
+        if (s[i] == x)
+          diff++;
+        else if (s[i] == y)
+          diff--;
+        else if (s[i] == z)
+          cntZ++;
+        if (umap.count({diff, cntZ}))
+          res = max(res, i - umap[{diff, cntZ}]);
+        else
+          umap[{diff, cntZ}] = i;
+      }
+    };
+
     findTwo('a', 'b', 'c');
     findTwo('a', 'c', 'b');
     findTwo('b', 'c', 'a');
 
+    // 三字元
     unordered_map<pair<int, int>, int, PairHash<int, int>> umap{{{0, 0}, -1}};
     unordered_map<int, int> cnt;
     for (int i = 0; i < n; ++i) {

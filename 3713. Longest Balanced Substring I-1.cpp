@@ -1,3 +1,8 @@
+// mark
+// 1490
+// 2D Prefix Sum + Brute Force
+// O(n^2)
+// 對 L 不具單調性，無法 Binary Search
 class Solution {
 public:
   int longestBalanced(string s) {

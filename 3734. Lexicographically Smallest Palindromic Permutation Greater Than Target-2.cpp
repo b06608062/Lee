@@ -1,3 +1,7 @@
+// mark
+// 2330
+// Leetcode 3720 變形
+// 字串字典序下一排列 + 從中點往左構造合法回文字串
 class Solution {
 public:
   string lexPalindromicPermutation(string s, string target) {

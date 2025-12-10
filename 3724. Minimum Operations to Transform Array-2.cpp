@@ -3,23 +3,16 @@ public:
   long long minOperations(vector<int> &nums1, vector<int> &nums2) {
     int n = nums1.size();
 
-    vector<int> diff(100002, 0);
-
-    long long res = 0;
+    long long res = 0, n2 = nums2[n], add = INT_MAX;
     for (int i = 0; i < n; ++i) {
       int x = nums1[i], y = nums2[i];
       if (x > y)
         swap(x, y);
-      diff[x]++;
-      diff[y + 1]--;
+      if (x <= n2 && n2 <= y)
+        add = 0;
+      else
+        add = min(add, min(abs(n2 - x), abs(n2 - y)));
       res += y - x;
-    }
-
-    int cur = 0, add = INT_MAX;
-    for (int i = 0; i < 100002; ++i) {
-      cur += diff[i];
-      if (cur > 0)
-        add = min(add, abs(i - nums2[n]));
     }
 
     return res + 1 + add;

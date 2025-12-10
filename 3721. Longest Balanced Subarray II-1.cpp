@@ -1,3 +1,9 @@
+// mark
+// 2724
+// 子陣列中「不同偶數的個數」=「不同奇數的個數」，求最長子陣列長度
+// 奇數為 +1，偶數為 -1，重複元素則視為 0
+// 忽略重複元素 + 動態更新前綴和 + 快速查找最左側相同前綴和位置
+// Lazy Segment Tree 動態區間更新 + 二分區間查找 O(log n)
 class LazySegmentTree {
 public:
   int n;
@@ -49,16 +55,16 @@ private:
   }
 
   void update(int p, int l, int r, int ql, int qr, int v) {
+    if (qr < l || r < ql)
+      return;
     if (ql <= l && r <= qr) {
       apply(p, l, r, v);
       return;
     }
     push(p, l, r);
     int m = (l + r) / 2;
-    if (ql <= m)
-      update(p << 1, l, m, ql, qr, v);
-    if (qr > m)
-      update(p << 1 | 1, m + 1, r, ql, qr, v);
+    update(p << 1, l, m, ql, qr, v);
+    update(p << 1 | 1, m + 1, r, ql, qr, v);
     pull(p);
   }
 
@@ -72,7 +78,7 @@ private:
     push(p, l, r);
     int m = (l + r) / 2;
     int res = find_first(p << 1, l, m, ql, qr, target);
-    if (res == -1)
+    if (res < 0)
       res = find_first(p << 1 | 1, m + 1, r, ql, qr, target);
     return res;
   }
@@ -100,9 +106,9 @@ public:
       }
       umap[x] = i;
 
-      int j = t.find_first(0, i - 1 - res, cur);
+      int j = t.find_first(0, i - 1, cur);
       if (j >= 0)
-        res = i - j;
+        res = max(res, i - j);
     }
 
     return res;

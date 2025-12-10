@@ -1,3 +1,6 @@
+// mark
+// 1958
+// 字串字典序下一排列 + 差分 + 從右往左還原
 class Solution {
 public:
   string lexGreaterPermutation(string s, string target) {

@@ -1,3 +1,7 @@
+// mark
+// 2123
+// Alternating 3D DP + Prefix Sum + 空間壓縮
+// 見 1 ~ 6
 class Solution {
 public:
   int zigZagArrays(int n, int l, int r) {

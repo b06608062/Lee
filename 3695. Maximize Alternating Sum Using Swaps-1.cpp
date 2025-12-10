@@ -1,3 +1,6 @@
+// mark
+// 1984
+// DSU + Greedy
 struct DSU {
   vector<int> p, sz;
   DSU(int n) : p(n), sz(n, 1) { iota(p.begin(), p.end(), 0); }
@@ -31,20 +34,16 @@ public:
 
     long long res = 0;
     for (auto &[_, v] : umap) {
-      int size = v.size(), even = 0;
-      vector<int> arr(size);
-      for (int i = 0; i < size; ++i) {
-        int pos = v[i];
-        if (pos % 2 == 0)
+      int sz = v.size(), even = 0;
+      for (auto idx : v)
+        if (idx % 2 == 0)
           even++;
-        arr[i] = nums[pos];
+      sort(v.begin(), v.end(),
+           [&](auto &a, auto &b) { return nums[a] > nums[b]; });
+      for (int i = 0; i < sz; ++i) {
+        int x = nums[v[i]];
+        res += (i < even) ? x : -x;
       }
-      sort(arr.rbegin(), arr.rend());
-      for (int i = 0; i < size; ++i)
-        if (i < even)
-          res += arr[i];
-        else
-          res -= arr[i];
     }
 
     return res;
