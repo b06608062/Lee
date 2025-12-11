@@ -1,47 +1,28 @@
+// mark
+// 1811
+// 前後綴分解 Prefix + Suffix DP + 修改中點元素
 class Solution {
 public:
   int longestSubarray(vector<int> &nums) {
     int n = nums.size();
-    if (n <= 2)
-      return n;
 
-    int l = 0, r = 1, last = -1, temp = -1, res = 1;
-    while (r < n) {
-      if (nums[r] < nums[r - 1]) {
-        if (last == -1) {
-          temp = nums[r], last = r;
-          nums[r] = nums[r - 1];
-        } else {
-          nums[last] = temp;
-          l = last;
-          temp = -1, last = -1;
-          continue;
-        }
-      }
-      res = max(res, r - l + 1);
-      r++;
-    }
+    vector<int> left(n, 1), right(n, 1);
 
-    if (last != -1)
-      nums[last] = temp;
+    int res = 2;
+    for (int i = 1; i < n; ++i)
+      if (nums[i] >= nums[i - 1])
+        left[i] = left[i - 1] + 1;
 
-    l = n - 2, r = n - 1, last = -1, temp = -1;
-    while (l >= 0) {
-      if (nums[l] > nums[l + 1]) {
-        if (last == -1) {
-          temp = nums[l], last = l;
-          nums[l] = nums[l + 1];
-        } else {
-          nums[last] = temp;
-          r = last;
-          temp = -1, last = -1;
-          continue;
-        }
-      }
-      res = max(res, r - l + 1);
-      l--;
-    }
+    for (int i = n - 2; i >= 0; --i)
+      if (nums[i] <= nums[i + 1])
+        right[i] = right[i + 1] + 1;
 
-    return res;
+    res = *max_element(left.begin(), left.end()) + 1;
+
+    for (int i = 0; i + 2 < n; ++i)
+      if (nums[i] <= nums[i + 2])
+        res = max(res, left[i] + right[i + 2] + 1);
+
+    return min(res, n);
   }
 };

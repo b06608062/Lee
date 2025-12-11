@@ -1,3 +1,10 @@
+// mark
+// 2090
+// 有序統計樹 Ordered Set (PBDS) + 差分前綴和
+// 利用 order_of_key 統計前綴和 < cur 的個數
+// 在一棵平衡 BST（像 AVL / Red-Black
+// Tree）上，額外維護每個節點的子樹大小，然後用這個來做 order_of_key /
+// find_by_order 操作
 #include <ext/pb_ds/assoc_container.hpp>
 using namespace __gnu_pbds;
 
