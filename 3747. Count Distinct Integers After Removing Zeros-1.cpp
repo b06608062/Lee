@@ -1,3 +1,6 @@
+// mark
+// 1848
+// 數位 + 組合數學
 class Solution {
 public:
   long long countDistinct(long long n) {

@@ -49,7 +49,7 @@ public:
 
   vector<int> minOperations(vector<int> &nums) {
     vector<int> palindromes;
-    for (int i = 1; i <= 5000; ++i)
+    for (int i = 1; i <= 8192; ++i)
       if (isPalindrome(i))
         palindromes.push_back(i);
 

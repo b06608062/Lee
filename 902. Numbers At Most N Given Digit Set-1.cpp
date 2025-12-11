@@ -1,33 +1,40 @@
+// mark
+// 1990
+// 數位 DP 入門
 class Solution {
 public:
   string s;
-  int dp[10]; // dp[pos]
+  vector<int> digs;
+  int dp[10][2][2];
   int atMostNGivenDigitSet(vector<string> &digits, int n) {
     s = to_string(n);
+    for (auto &d : digits)
+      digs.push_back(d[0] - '0');
     memset(dp, -1, sizeof(dp));
 
-    return dfs(digits, 0, true, false);
+    return dfs(0, 0, 0);
   }
 
-  int dfs(vector<string> &digits, int i, bool isLimit, bool isNum) {
+  int dfs(int i, int free, int fix) {
     if (i == s.size())
-      return isNum ? 1 : 0;
+      return fix ? 1 : 0;
 
-    if (!isLimit && isNum) {
-      int memo = dp[i];
-      if (memo != -1)
-        return memo;
+    int &res = dp[i][free][fix];
+    if (res != -1)
+      return res;
+
+    res = 0;
+    int up = free ? 9 : (s[i] - '0');
+
+    if (fix == 0)
+      res += dfs(i + 1, 1, 0);
+
+    for (int d : digs) {
+      if (d > up)
+        break;
+      res += dfs(i + 1, free || (d < up), 1);
     }
 
-    int res = 0;
-    if (!isNum)
-      res += dfs(digits, i + 1, false, false);
-
-    char up = isLimit ? s[i] : '9';
-    for (auto d : digits)
-      if (d[0] <= up)
-        res += dfs(digits, i + 1, isLimit && (d[0] == up), true);
-
-    return (!isLimit && isNum) ? (dp[i] = res) : res;
+    return res;
   }
 };
