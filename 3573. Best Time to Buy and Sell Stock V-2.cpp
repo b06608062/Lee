@@ -1,3 +1,6 @@
+// mark
+// 1777
+// 股票交易模型 + 可做空或做多 + 限制交易次數
 class Solution {
 public:
   vector<vector<array<long long, 3>>> dp; // rest, buy, sell

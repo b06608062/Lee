@@ -1,3 +1,9 @@
+// mark
+// 3125
+// 環狀問題轉換成兩個線性問題之聯集 最大元素在分割區間的最左或或最右
+// 股票交易模型 + 可做空或做多 + 限制交易次數
+// 可做空或做多 -> 找區間最大差值
+// 限制交易次數 -> 限制分割區間數量
 class Solution {
 public:
   long long maximumScore(vector<int> &nums, int k) {
