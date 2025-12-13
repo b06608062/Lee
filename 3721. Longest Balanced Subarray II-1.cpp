@@ -41,7 +41,7 @@ private:
   }
 
   void push(int p, int l, int r) {
-    if (lazy[p] == 0)
+    if (lazy[p] == 0 || l == r)
       return;
     int m = (l + r) / 2;
     apply(p << 1, l, m, lazy[p]);

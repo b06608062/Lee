@@ -1,65 +1,50 @@
+// mark
+// 2209
+// 將陣列切分為多個最大非遞增子序列區間，並預先計算每個區間的穩定子陣列數量前綴和
+// 查詢時利用二分搜尋找到查詢區間內的完整子序列區間，就可以利用前綴和快速計算
+// 可以把查詢區間 [l, r] 分為三個部分：包含 l 的左側部分、完整的中間部分、包含 r
+// 的右側部分
+// 搜尋目標： > l 的第一個 i 區間與 <= r 的最後一個區間 j
+// 完整段落會落在 i 到 j - 1 區間
+//  > l 的第一個 i 區間可以用 upper_bound(left, l) 搜尋到
+//  <= r 的最後一個區間 j 可以用 upper_bound(left, r) - 1 搜尋到
 class Solution {
 public:
   vector<long long> countStableSubarrays(vector<int> &nums,
                                          vector<vector<int>> &queries) {
     int n = nums.size();
 
-    // 尋找「嚴格遞增段」
-    vector<int> left; // 每個遞增段的左端點
-    vector<long long> s = {0}; // 遞增子陣列個數的前綴和（注意每段是 m*(m+1)/2）
-    int start = 0; // 當前遞增段的起點
-
-    for (int i = 0; i < n; i++) {
-      int x = nums[i];
-
-      // 若到最後一個元素，或出現 nums[i] > nums[i+1]，表示遞增段結束
-      if (i == n - 1 || x > nums[i + 1]) {
-        // 目前找到一段嚴格遞增區間 [start, i]
+    vector<int> left;
+    vector<long long> pref({0});
+    int start = 0;
+    for (int i = 0; i < n; ++i) {
+      if (i == n - 1 || nums[i] > nums[i + 1]) {
         left.push_back(start);
         long long m = i - start + 1;
-
-        // 長度為 m 的嚴格遞增段，其遞增子陣列總數為 m*(m+1)/2
-        // 並累加到前綴和中
-        s.push_back(s.back() + m * (m + 1) / 2);
-
-        // 下一段從 i+1 開始
+        pref.push_back(pref.back() + m * (m + 1) / 2);
         start = i + 1;
       }
     }
 
-    vector<long long> ans;
-    ans.reserve(queries.size()); // 預先配置空間
-
+    vector<long long> res;
     for (auto &q : queries) {
       int l = q[0], r = q[1];
-
-      // i：第一個 left[i] > l 的段索引（右界）
-      int i = ranges::upper_bound(left, l) - left.begin();
-
-      // j：最後一個 left[j] <= r 的段索引（左界）
-      int j = ranges::upper_bound(left, r) - left.begin() - 1;
-
-      // 若 i > j，表示 l 與 r 落在同一個遞增段中
+      // i = first start > l
+      // j = last start <= r
+      // 同段：i > j
+      int i = upper_bound(left.begin(), left.end(), l) - left.begin();
+      int j = upper_bound(left.begin(), left.end(), r) - left.begin() - 1;
       if (i > j) {
-        long long m = r - l + 1;        // 該段長度
-        ans.push_back(m * (m + 1) / 2); // 該段全部子陣列
-        continue;
+        long long m = r - l + 1;
+        res.push_back(m * (m + 1) / 2);
+      } else {
+        long long m1 = left[i] - l;
+        long long m2 = r - left[j] + 1;
+        res.push_back(m1 * (m1 + 1) / 2 + (pref[j] - pref[i]) +
+                      m2 * (m2 + 1) / 2);
       }
-
-      // 若 l 與 r 不在同一段，區間被分成三段：
-      // 1. 左邊殘段 [l, left[i])
-      // 2. 中間完整段 [left[i], left[j])（可用前綴和求）
-      // 3. 右邊殘段 [left[j], r]
-
-      long long m1 = left[i] - l;     // 左邊殘段長度
-      long long m3 = r - left[j] + 1; // 右邊殘段長度
-
-      long long mid = s[j] - s[i]; // 中間完整段的遞增子陣列總數（用前綴和）
-
-      // 三段相加：m*(m+1)/2 為遞增子陣列公式
-      ans.push_back(m1 * (m1 + 1) / 2 + mid + m3 * (m3 + 1) / 2);
     }
 
-    return ans;
+    return res;
   }
 };

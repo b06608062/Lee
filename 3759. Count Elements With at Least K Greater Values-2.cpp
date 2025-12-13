@@ -6,7 +6,6 @@ public:
       return n;
 
     sort(nums.begin(), nums.end());
-    return (lower_bound(nums.begin(), nums.end(), nums[n - k]) - nums.begin()) -
-           1 + 1;
+    return (lower_bound(nums.begin(), nums.end(), nums[n - k]) - nums.begin());
   }
 };

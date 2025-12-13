@@ -1,30 +1,35 @@
+// mark
+// 數位 DP
+// 表示在處理到第 i 位（從左到右）時，前 i 位中已經填入了 cnt1 個數字 1，
+// 在此前提下，所有可以構造出的合法數字，其「整體出現 1 的總次數」之和。
 class Solution {
 public:
+  string s;
+  int dp[10][2][2][10];
   int countDigitOne(int n) {
-    string s = to_string(n);
-    int m = s.size();
-    vector memo(m, vector<int>(m, -1));
-    // 定義 dfs(i, cnt1, isLimit)：
-    // 表示在處理到第 i 位（從左到右）時，前 i 位中已經填入了 cnt1 個數字 1，
-    // 在此前提下，所有可以構造出的合法數字，其「整體出現 1 的總次數」之和。
-    auto dfs = [&](this auto &&dfs, int i, int cnt1, bool is_limit) -> int {
-      if (i == m)
-        return cnt1;
+    s = to_string(n);
+    memset(dp, -1, sizeof(dp));
 
-      if (!is_limit && memo[i][cnt1] >= 0)
-        return memo[i][cnt1];
+    return dfs(0, 0, 0, 0);
+  }
 
-      int res = 0;
-      int up = is_limit ? s[i] - '0' : 9;
-      for (int d = 0; d <= up; ++d)
-        res += dfs(i + 1, cnt1 + (d == 1), is_limit && d == up);
+  int dfs(int i, int free, int fix, int cnt1) {
+    if (i == s.size())
+      return cnt1;
 
-      if (!is_limit)
-        memo[i][cnt1] = res;
-
+    int &res = dp[i][free][fix][cnt1];
+    if (res != -1)
       return res;
-    };
 
-    return dfs(0, 0, true);
+    res = 0;
+    int up = free ? 9 : (s[i] - '0');
+
+    if (fix == 0)
+      res += dfs(i + 1, 1, 0, 0);
+
+    for (int d = (fix == 0 ? 1 : 0); d <= up; ++d)
+      res += dfs(i + 1, free || (d < up), 1, d == 1 ? cnt1 + 1 : cnt1);
+
+    return res;
   }
 };
