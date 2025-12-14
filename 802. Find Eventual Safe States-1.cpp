@@ -1,30 +1,29 @@
 class Solution {
 public:
-  unordered_set<int> safe;
-  vector<bool> vis;
-  int n;
+  vector<int> colors; // 0, 1, 2
   vector<int> eventualSafeNodes(vector<vector<int>> &graph) {
-    n = graph.size();
-    vis.assign(n, false);
+    int n = graph.size();
 
+    colors.assign(n, 0);
     for (int i = 0; i < n; ++i)
       dfs(graph, i);
 
-    vector<int> res(safe.begin(), safe.end());
-    sort(res.begin(), res.end());
+    vector<int> res;
+    for (int i = 0; i < n; ++i)
+      if (colors[i] == 2)
+        res.push_back(i);
 
     return res;
   }
 
-  bool dfs(vector<vector<int>> &graph, int i) {
-    if (vis[i])
-      return safe.find(i) != safe.end();
-    vis[i] = true;
-    bool vaild = true;
-    for (auto j : graph[i])
-      vaild &= dfs(graph, j);
-    if (vaild)
-      safe.insert(i);
-    return vaild;
+  bool dfs(vector<vector<int>> &graph, int u) {
+    if (colors[u] != 0)
+      return colors[u] == 2;
+    colors[u] = 1;
+    for (auto v : graph[u])
+      if (!dfs(graph, v))
+        return false;
+    colors[u] = 2;
+    return true;
   }
 };

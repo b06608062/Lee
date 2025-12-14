@@ -1,25 +1,33 @@
 class Solution {
 public:
-  vector<int> color;
   vector<int> eventualSafeNodes(vector<vector<int>> &graph) {
     int n = graph.size();
-    color.assign(n, 0);
-    vector<int> res;
 
+    vector<vector<int>> revG(n);
+    vector<int> outdeg(n, 0);
+    for (int u = 0; u < n; ++u)
+      for (auto v : graph[u]) {
+        revG[v].push_back(u);
+        outdeg[u]++;
+      }
+
+    queue<int> q;
     for (int i = 0; i < n; ++i)
-      if (dfs(graph, i))
-        res.push_back(i);
+      if (outdeg[i] == 0)
+        q.push(i);
+
+    vector<int> res;
+    while (!q.empty()) {
+      int u = q.front();
+      q.pop();
+      res.push_back(u);
+      for (auto v : revG[u])
+        if (--outdeg[v] == 0)
+          q.push(v);
+    }
+
+    sort(res.begin(), res.end());
 
     return res;
-  }
-  bool dfs(vector<vector<int>> &graph, int u) {
-    if (color[u] != 0)
-      return color[u] == 2;
-    color[u] = 1;
-    for (int v : graph[u])
-      if (!dfs(graph, v))
-        return false;
-    color[u] = 2;
-    return true;
   }
 };
