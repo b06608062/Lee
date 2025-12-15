@@ -1,52 +1,53 @@
-// TODO
+// mark
 // 2419
-// 數位 DP
+// 數位 DP 進階 + 組合兩數 + 借位處理
 class Solution {
 public:
   string s;
-  vector<vector<vector<long long>>> memo;
+  int dp[16][2][2]; // i, borrowed, fix
   long long countNoZeroPairs(long long n) {
     s = to_string(n);
     int m = s.size();
-    memo = vector<vector<vector<long long>>>(
-        m, vector<vector<long long>>(2, vector<long long>(2, -1)));
+    memset(dp, -1, sizeof(dp));
 
-    return dfs(m - 1, false, true);
+    return dfs(m - 1, 0, 0);
   }
 
-  long long dfs(int i, bool borrowed, bool isNum) {
+  long long dfs(int i, int borrowed, int fix) {
     if (i < 0)
-      return !borrowed;
+      return borrowed == 0 ? 1 : 0;
 
-    long long res = memo[i][borrowed][isNum];
+    long long res = dp[i][borrowed][fix];
     if (res != -1)
       return res;
 
     int d = s[i] - '0' - borrowed;
-
     res = 0;
-    // 兩數都不為 0
-    if (isNum) {
-      res += dfs(i - 1, false, true) * calc(d);     // 不向高位借 1
-      res += dfs(i - 1, true, true) * calc(d + 10); // 向高位借 1
+
+    if (!fix) {
+      // 兩數都不為 0
+      res += dfs(i - 1, 0, 0) * two_sum_ways(d);      // 不向高位借 1
+      res += dfs(i - 1, 1, 0) * two_sum_ways(d + 10); // 向高位借 1
     }
 
-    // 其中一個數位填前導 0
-    if (i < s.size() - 1) { // 不能是最低位，否則有一數為 0
-      if (d != 0)           // d 不能是 0
+    if (i != s.size() - 1) {
+      // 其中一個數位填前導 0
+      // 不能是最低位，否則有一數為 0
+      if (d != 0) // d 不能是 0
         // 如果 d < 0，必须向高位借 1
-        // 如果 isNum = true，根據對稱性 a or b 為前導 0，要乘以 2
-        res += dfs(i - 1, d < 0, false) * (isNum + 1);
-      else if (i == 0) // d = 0
-        res++;         // 只有當最高位，兩數才能都填
+        // 如果 fix = -，根據對稱性 a or b 都可為前導 0，要乘以 2
+        res += dfs(i - 1, d < 0, 1) * (fix ? 1 : 2);
+      else if (i == 0)
+        // 只有當最高位，兩數才能都填
+        return 1;
     }
 
-    return memo[i][borrowed][isNum] = res;
+    return res;
   }
 
-  int calc(int target) {
+  int two_sum_ways(int target) {
     if (target < 2)
       return 0;
-    return target < 10 ? target - 1 : 19 - target;
+    return min(target - 1, 19 - target);
   }
 };

@@ -1,6 +1,7 @@
-// TODO
+// mark
 // 2694
-const int MOD = 1'000'000'007;
+// 位運算狀態壓縮 DP + 組合數學 + 費馬小定理 預處理階乘及其反元素
+const int MOD = 1e9 + 7;
 const int MX = 31;
 
 long long fac[MX];  // fac[i] = i!
@@ -24,7 +25,11 @@ auto init = [] {
     fac[i] = fac[i - 1] * i % MOD;
   }
 
-  invF[MX - 1] = pow(fac[MX - 1], MOD - 2); // 費馬小定理
+  // 費馬小定理
+  // a^(p-1) ≡ 1 (mod p) ⇒ a * a^(p-2) ≡ 1 (mod p)
+  // 即是說 a^(p-2) ≡ a^(-1) (mod p)
+  // a^(p-2) ≡ a^(-1) (mod p)
+  invF[MX - 1] = pow(fac[MX - 1], MOD - 2);
   // 由於 invF[i] = invF[i+1] * (i+1)，所以可以倒著算
   for (int i = MX - 2; i >= 0; --i) {
     invF[i] = invF[i + 1] * (i + 1) % MOD;
@@ -35,41 +40,46 @@ auto init = [] {
 
 class Solution {
 public:
+  long long dp[50][MX][MX][MX]; // i, left_m, s, left_k
+  long long powNum[50][MX];
+  int n, m;
   int magicalSum(int m, int k, vector<int> &nums) {
-    int n = nums.size();
+    n = nums.size();
+    this->m = m;
 
-    vector powNum(n, vector<int>(m + 1, 1));
     for (int i = 0; i < n; ++i) {
       long long x = nums[i];
-      for (int j = 1; j <= m; ++j)
-        powNum[i][j] = powNum[i][j - 1] * x % MOD;
+      for (int j = 0; j <= m; ++j)
+        if (j == 0)
+          powNum[i][j] = 1;
+        else
+          powNum[i][j] = powNum[i][j - 1] * x % MOD;
     }
 
-    vector memo(n, vector(m + 1, vector(m / 2 + 1, vector<int>(k + 1, -1))));
+    memset(dp, -1, sizeof(dp));
 
-    auto dfs = [&](this auto &&dfs, int i, int leftM, int x, int leftK) -> int {
-      int popC = popcount((uint32_t)x);
-      if (popC + leftM < leftK)
-        return 0;
+    return fac[m] * dfs(0, m, 0, k) % MOD;
+  }
 
-      if (i == n || leftM == 0 || leftK == 0)
-        return leftM == 0 && popC == leftK;
+  long long dfs(int i, int left_m, int s, int left_k) {
+    int pop_c = popcount((uint32_t)s);
+    if (pop_c + left_m < left_k)
+      return 0;
 
-      int &res = memo[i][leftM][x][leftK];
-      if (res != -1)
-        return res;
+    if (i == n || left_m == 0 || left_k == 0)
+      return left_m == 0 && pop_c == left_k;
 
-      res = 0;
-      for (int j = 0; j <= leftM; ++j) {
-        int bit = (x + j) & 1;
-        res = (res + 1LL * dfs(i + 1, leftM - j, (x + j) >> 1, leftK - bit) *
-                         powNum[i][j] % MOD * invF[j]) %
-              MOD;
-      }
-
+    long long &res = dp[i][left_m][s][left_k];
+    if (res != -1)
       return res;
-    };
 
-    return 1LL * dfs(0, m, 0, k) * fac[m] % MOD;
+    res = 0;
+    for (int j = 0; j <= left_m; ++j) {
+      res += dfs(i + 1, left_m - j, (s + j) >> 1, left_k - ((s + j) & 1)) *
+             powNum[i][j] % MOD * invF[j] % MOD;
+      res %= MOD;
+    }
+
+    return res % MOD;
   }
 };
