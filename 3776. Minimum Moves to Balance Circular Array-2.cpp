@@ -1,4 +1,5 @@
 // mark
+// 1740
 // Greedy 模擬 + 雙指標左右環狀擴展
 class Solution {
 public:
