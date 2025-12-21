@@ -5,25 +5,15 @@
 class Solution {
 public:
   int maximumSum(vector<int> &nums) {
-    int n = nums.size();
+    const int INF = INT_MIN / 2;
+    vector f(3 + 1, vector<int>(3, INF));
 
-    vector dp(n, vector(4, vector<int>(3, 0)));
+    f[0][0] = 0;
+    for (auto x : nums)
+      for (int j = 3; j > 0; j--)
+        for (int k = 0; k < 3; ++k)
+          f[j][(x + k) % 3] = max(f[j][(x + k) % 3], f[j - 1][k % 3] + x);
 
-    dp[0][1][nums[0] % 3] = nums[0];
-    for (int i = 1; i < n; ++i) {
-      int x = nums[i];
-      dp[i] = dp[i - 1];
-      dp[i][1][x % 3] = max(dp[i][1][x % 3], x);
-      for (int j = 2; j <= 3; ++j) {
-        for (int k = 0; k <= 2; ++k) {
-          if (dp[i - 1][j - 1][k]) {
-            int nxt = (x + k) % 3;
-            dp[i][j][nxt] = max(dp[i][j][nxt], dp[i - 1][j - 1][k] + x);
-          }
-        }
-      }
-    }
-
-    return dp[n - 1][3][0];
+    return max(f[3][0], 0);
   }
 };

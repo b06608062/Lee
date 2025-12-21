@@ -17,3 +17,11 @@ public:
     return head;
   }
 };
+
+class Solution {
+public:
+  long long lastInteger(long long n) {
+    const long long MASK = 0xAAAAAAAAAAAAAAAA;
+    return ((n - 1) & MASK) + 1;
+  }
+};
