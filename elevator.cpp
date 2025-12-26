@@ -116,6 +116,8 @@ int main() {
   return 0;
 }
 
+// clang++ -std=c++17 -O2 -Wall -Wextra -pedantic elevator.cpp -o test
+
 /*
 ./test << 'EOF'
 10 4
