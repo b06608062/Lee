@@ -1,5 +1,5 @@
 // mark
-// ???
+// 2074
 // 模擬 + 狀態反轉 + 等差數列
 class Solution {
 public:

@@ -1,5 +1,5 @@
 // mark
-// ???
+// 1585
 // 數學 + 分類討論
 class Solution {
 public:
