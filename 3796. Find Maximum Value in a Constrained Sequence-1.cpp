@@ -1,6 +1,8 @@
 // mark
 // ???
-// Two-pass DP / Two-pass relaxation
+// 二次掃瞄法
+// Two-pass relaxation
+// TODO 135, 1840
 class Solution {
 public:
   int findMaxVal(int n, vector<vector<int>> &restrictions, vector<int> &diff) {
