@@ -1,5 +1,5 @@
 // mark
-// ???
+// 2399
 // 子集狀態壓縮 DP +  預處理
 class Solution {
 public:
