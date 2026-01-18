@@ -15,7 +15,6 @@ public:
     if (i == s.size())
       return fix && repeat ? 1 : 0;
 
-    cout << repeat << endl;
     int &res = dp[i][free][fix][mask][repeat];
     if (res != -1)
       return res;
