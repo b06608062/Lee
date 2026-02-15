@@ -1,5 +1,5 @@
 // mark
-// ???
+// 1846
 // Bitwise AND > 0 的充要條件為：該子序列中所有元素在至少一個 bit pos 都為 1
 // 枚舉每個 bit pos，找最長 LIS (Patience Sorting O(n log n))
 // 由左至右掃描：遍歷陣列中的每一個元素
