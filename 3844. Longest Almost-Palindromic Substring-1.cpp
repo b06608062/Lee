@@ -1,7 +1,31 @@
-// MLE
 // mark
 // ???
+// 中心擴展法
+class Solution {
+public:
+  int almostPalindromic(string s) {
+    int n = s.size();
 
+    int res = 0;
+    auto expand = [&](int l, int r) {
+      while (l >= 0 && r < n && s[l] == s[r])
+        l--, r++;
+      res = max(res, r - l - 1); // [l + 1, r - 1]
+    };
+
+    for (int i = 0; i < 2 * n - 1; ++i) {
+      int l = i / 2, r = (i + 1) / 2;
+      while (l >= 0 && r < n && s[l] == s[r])
+        l--, r++;
+      expand(l - 1, r);
+      expand(l, r + 1);
+    }
+
+    return res >= n ? n : res;
+  }
+};
+
+// MLE
 class Solution {
 public:
   int almostPalindromic(string s) {
