@@ -43,3 +43,47 @@ public:
     return res;
   }
 };
+
+class SegmentTree {
+public:
+  int n;
+  vector<int> tree;
+  SegmentTree(vector<int> &nums) {
+    n = nums.size();
+    tree.resize(n * 4);
+    bulid(nums, 1, 0, n - 1);
+  }
+
+  void bulid(vector<int> &nums, int p, int l, int r) {
+    if (l == r) {
+      tree[p] = nums[l];
+      return;
+    }
+    int m = l + (r - l) / 2;
+    bulid(nums, p << 1, l, m);
+    bulid(nums, p << 1 | 1, m + 1, r);
+    tree[p] = max(tree[p << 1], tree[p << 1 | 1]);
+  }
+
+  int query(int p, int l, int r, int ql, int qr) {
+    if (qr < l || ql > r)
+      return INT_MIN / 2;
+    if (ql <= l && r <= qr)
+      return tree[p];
+    int m = l + (r - l) / 2;
+    return max(query(p << 1, l, m, ql, qr),
+               query(p << 1 | 1, m + 1, r, ql, qr));
+  }
+};
+
+class Solution {
+public:
+  vector<int> maxSlidingWindow(vector<int> &nums, int k) {
+    int n = nums.size();
+    SegmentTree t(nums);
+    vector<int> res;
+    for (int i = 0; i + k - 1 < n; ++i)
+      res.push_back(t.query(1, 0, n - 1, i, i + k - 1));
+    return res;
+  }
+};

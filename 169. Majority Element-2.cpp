@@ -1,3 +1,6 @@
+// mark
+// stack 對消
+
 class Solution {
 public:
   int majorityElement(vector<int> &nums) {

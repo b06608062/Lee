@@ -9,15 +9,15 @@ public:
     for (int x : nums)
       freq[x]++;
 
-    vector<vector<int>> bucket(n + 1);
+    vector<vector<int>> buckets(n + 1);
     for (auto [x, f] : freq)
-      bucket[f].push_back(x);
+      buckets[f].push_back(x);
 
     vector<int> res;
 
     int cnt = 0;
     for (int i = n; i >= 1 && cnt < k; --i) {
-      for (auto x : bucket[i]) {
+      for (auto x : buckets[i]) {
         res.push_back(x);
         if (++cnt == k)
           break;

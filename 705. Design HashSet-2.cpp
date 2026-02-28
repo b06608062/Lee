@@ -1,71 +1,67 @@
+// mark
+// 實作 HashSet
+
 struct Node {
   int key;
-  Node *next;
-  Node(int k) : key(k), next(nullptr) {}
+  Node *nxt;
+  Node(int key) : key(key), nxt(nullptr) {}
 };
 
 class MyHashSet {
 public:
-  static constexpr int size = 1000; // 類別共享，且是編譯期常數
-  Node *mySet[size];
-  MyHashSet() : mySet{} {}
+  static constexpr int sz = 1000;
+  Node *buckets[sz];
+  MyHashSet() : buckets{} {}
 
   void add(int key) {
-    int idx = key % size;
-
-    Node *head = mySet[idx];
+    int idx = key % sz;
+    Node *head = buckets[idx];
     Node *cur = head;
     while (cur) {
       if (cur->key == key)
         return;
-      cur = cur->next;
+      cur = cur->nxt;
     }
-
     Node *node = new Node(key);
-    node->next = head;
-    mySet[idx] = node;
+    node->nxt = head;
+    buckets[idx] = node;
   }
 
   void remove(int key) {
-    int idx = key % size;
-
-    Node *prev = nullptr, *cur = mySet[idx];
-    while (cur) {
-      if (cur->key == key) {
-        if (!prev)
-          mySet[idx] = cur->next;
-        else
-          prev->next = cur->next;
-        delete cur;
-        return;
-      } else {
-        prev = cur;
-        cur = cur->next;
-      }
-    }
-
-    // Node **pp = &mySet[key % size];
-    // while (*pp) {
-    //   if ((*pp)->key == key) {
-    //     Node *del = *pp;
-    //     *pp = (*pp)->next;
-    //     delete del;
+    // int idx = key % sz;
+    // Node *pre = nullptr, *cur = buckets[idx];
+    // while (cur) {
+    //   if (cur->key == key) {
+    //     if (!pre)
+    //       buckets[idx] = cur->nxt;
+    //     else
+    //       pre->nxt = cur->nxt;
+    //     delete cur;
     //     return;
     //   }
-    //   pp = &((*pp)->next);
+    //   pre = cur;
+    //   cur = cur->nxt;
     // }
+    Node **pp = &buckets[key % sz];
+    while (*pp) {
+      if ((*pp)->key == key) {
+        Node *del = *pp;
+        *pp = (*pp)->nxt;
+        delete del;
+        return;
+      }
+      pp = &((*pp)->nxt);
+    }
   }
 
   bool contains(int key) {
-    int idx = key % size;
-
-    Node *cur = mySet[idx];
+    int idx = key % sz;
+    Node *cur = buckets[idx];
     while (cur) {
       if (cur->key == key)
         return true;
-      cur = cur->next;
+      cur = cur->nxt;
     }
-
     return false;
   }
 };

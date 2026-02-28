@@ -1,42 +1,31 @@
 class Solution {
 public:
   string minWindow(string s, string t) {
-    int m = s.size(), n = t.size();
-    if (n > m)
+    int n1 = s.size(), n2 = t.size();
+    if (n2 > n1)
       return "";
-
-    vector<int> freqT(128, 0);
-    for (char c : t)
-      freqT[c]++;
-
-    int required = 0;
-    for (int i = 0; i < 128; ++i)
-      if (freqT[i] > 0)
-        required++;
-
-    vector<int> windowFreq(128, 0);
-
-    int left = 0, right = 0, formed = 0, minLen = INT_MAX, start = 0;
-    while (right < m) {
-      char c = s[right];
-      if (++windowFreq[c] == freqT[c])
-        formed++;
-
-      while (formed == required) {
-        int windowSize = right - left + 1;
-        if (windowSize < minLen) {
-          minLen = windowSize;
-          start = left;
-        }
-
-        char lc = s[left++];
-        if (--windowFreq[lc] < freqT[lc])
-          formed--;
-      }
-
-      right++;
+    vector<int> cnt1(128, 0), cnt2(128, 0);
+    int target = 0;
+    for (auto &ch : t) {
+      if (cnt2[ch] == 0)
+        ++target;
+      ++cnt2[ch];
     }
-
-    return minLen == INT_MAX ? "" : s.substr(start, minLen);
+    int l = 0, cur = 0, start = -1, len = n1 + 1;
+    for (int r = 0; r < n1; ++r) {
+      char to_add = s[r];
+      if (++cnt1[to_add] == cnt2[to_add])
+        ++cur;
+      while (cur == target) {
+        if (r - l + 1 < len) {
+          start = l;
+          len = r - l + 1;
+        }
+        char to_del = s[l++];
+        if (--cnt1[to_del] < cnt2[to_del])
+          cur--;
+      }
+    }
+    return len == n1 + 1 ? "" : s.substr(start, len);
   }
 };
