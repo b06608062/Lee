@@ -1,4 +1,5 @@
 // mark
+// 1965
 // 分析複雜度 + DFS 記憶化搜索 + gcd 最簡分數
 
 class Solution {
