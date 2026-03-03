@@ -32,3 +32,21 @@ public:
     return max(x, max(x + left, x + right));
   }
 };
+
+class Solution {
+public:
+  int res = INT_MIN;
+  int maxPathSum(TreeNode *root) {
+    helper(root);
+    return res;
+  }
+
+  int helper(TreeNode *root) {
+    if (!root)
+      return 0;
+    int mx_l = helper(root->left);
+    int mx_r = helper(root->right);
+    res = max(res, root->val + mx_l + mx_r);
+    return max(0, root->val + max(mx_l, mx_r));
+  }
+};
