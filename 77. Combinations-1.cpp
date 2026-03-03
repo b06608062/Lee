@@ -13,6 +13,8 @@ public:
       res.push_back(subset);
       return;
     }
+    if (subset.size() + (n - i + 1) < k)
+      return;
 
     if (i == n + 1)
       return;

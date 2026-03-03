@@ -14,7 +14,7 @@ public:
       return;
     }
 
-    for (int i = start; i <= n; ++i) {
+    for (int i = start; i <= n - (k - subset.size()) + 1; ++i) {
       subset.push_back(i);
       helper(n, k, i + 1);
       subset.pop_back();
