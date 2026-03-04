@@ -39,3 +39,48 @@ public:
     return res;
   }
 };
+
+class Solution {
+public:
+  vector<double> calcEquation(vector<vector<string>> &equations,
+                              vector<double> &values,
+                              vector<vector<string>> &queries) {
+    unordered_map<string, int> umap;
+    int n = 0;
+    for (auto &e : equations) {
+      auto &a = e[0], &b = e[1];
+      if (!umap.count(a))
+        umap[a] = n++;
+      if (!umap.count(b))
+        umap[b] = n++;
+    }
+
+    vector<vector<double>> dist(n, vector<double>(n, -1.0));
+    for (int i = 0; i < n; ++i)
+      dist[i][i] = 1.0;
+    for (int i = 0; i < equations.size(); ++i) {
+      int u = umap[equations[i][0]], v = umap[equations[i][1]];
+      double val = values[i];
+      dist[u][v] = val;
+      dist[v][u] = 1.0 / val;
+    }
+
+    for (int k = 0; k < n; ++k)
+      for (int i = 0; i < n; ++i)
+        for (int j = 0; j < n; ++j)
+          if (dist[i][j] < 0 && dist[i][k] > 0 && dist[k][j] > 0)
+            dist[i][j] = dist[i][k] * dist[k][j];
+
+    vector<double> res;
+    for (auto &q : queries) {
+      auto &a = q[0], &b = q[1];
+      if (!umap.count(a) || !umap.count(b)) {
+        res.push_back(-1.0);
+        continue;
+      }
+      res.push_back(dist[umap[a]][umap[b]]);
+    }
+
+    return res;
+  }
+};

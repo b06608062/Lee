@@ -6,6 +6,11 @@ struct TrieNode {
       children[i] = nullptr;
     word = nullptr;
   }
+  ~TrieNode() {
+    for (int i = 0; i < 26; ++i)
+      if (children[i])
+        delete children[i];
+  }
 };
 
 class Solution {
@@ -53,4 +58,5 @@ public:
       dfs(board, i + dirs[d], j + dirs[d + 1], next);
     board[i][j] = ch;
   }
+  ~Solution() { delete root; }
 };

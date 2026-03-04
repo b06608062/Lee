@@ -1,6 +1,8 @@
 class Solution {
 public:
   vector<int> findMinHeightTrees(int n, vector<vector<int>> &edges) {
+    if (n == 1)
+      return {0};
     vector<vector<int>> adj(n);
     vector<int> deg(n, 0);
 
@@ -14,7 +16,7 @@ public:
 
     queue<int> q;
     for (int i = 0; i < n; ++i)
-      if (deg[i] <= 1)
+      if (deg[i] == 1)
         q.push(i);
 
     int remain = n;
