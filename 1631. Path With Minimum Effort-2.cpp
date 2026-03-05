@@ -89,3 +89,44 @@ public:
     return false;
   }
 };
+
+class Solution {
+public:
+  vector<int> dirs{0, 1, 0, -1, 0};
+  int m, n;
+  int minimumEffortPath(vector<vector<int>> &heights) {
+    m = heights.size(), n = heights[0].size();
+    int mx = 0;
+    for (auto &row : heights)
+      for (auto c : row)
+        max(mx, c);
+
+    int l = 1, r = mx - 1;
+    while (l < r) {
+      int mid = l + (r - l) / 2;
+      vector<vector<bool>> vis(m, vector<bool>(n, false));
+      if (!dfs(heights, vis, 0, 0, mid))
+        l = mid + 1;
+      else
+        r = mid;
+    }
+    return l;
+  }
+
+  bool dfs(vector<vector<int>> &heights, vector<vector<bool>> &vis, int i,
+           int j, int limit) {
+    if (i == m - 1 && j == n - 1)
+      return true;
+    int h = heights[i][j];
+    vis[i][j] = true;
+    for (int d = 0; d < 4; ++d) {
+      int n_i = i + dirs[d], n_j = j + dirs[d + 1];
+      if (n_i < 0 || n_i >= m || n_j < 0 || n_j >= n || vis[i][j] ||
+          abs(heights[n_i][n_j] - h) > limit)
+        continue;
+      if (dfs(heights, vis, n_i, n_j, limit))
+        return true;
+    }
+    return false;
+  }
+};

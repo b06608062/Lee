@@ -26,6 +26,8 @@ class Solution {
 public:
   int swimInWater(vector<vector<int>> &grid) {
     int n = grid.size();
+    if (n == 1)
+      return 0;
 
     DSU dsu(n * n);
     vector<Edge> edges;
