@@ -4,16 +4,13 @@ public:
     int sum = accumulate(nums.begin(), nums.end(), 0);
     if (sum % 2)
       return false;
-
     int target = sum / 2;
-    vector<int> dp(target + 1, 0);
-
-    dp[0] = 1;
+    vector<bool> f(target + 1, false);
+    f[0] = true;
     for (auto x : nums)
-      for (int i = target; i - x >= 0; --i)
-        if (dp[i - x])
-          dp[i] = 1;
-
-    return dp[target];
+      for (int i = target; i >= x; --i)
+        if (f[i - x])
+          f[i] = true;
+    return f[target];
   }
 };

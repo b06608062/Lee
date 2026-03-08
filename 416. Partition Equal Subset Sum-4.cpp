@@ -6,11 +6,11 @@ public:
       return false;
 
     int target = sum / 2;
-    bitset<20001> dp;
-    dp[0] = 1;
+    bitset<20001> f;
+    f[0] = 1;
     for (auto x : nums)
-      dp |= dp << x;
+      f |= f << x;
 
-    return dp[target];
+    return f[target];
   }
 };
