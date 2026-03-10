@@ -27,10 +27,10 @@ public:
   int maxProfit(vector<int> &prices) {
     int f0 = 0, f1 = 0, f2 = INT_MIN; // prev rest, rest, hold
     for (auto x : prices) {
-      int new_f2 = max(f2, f0 - x);
+      int nxt_f2 = max(f2, f0 - x);
       f0 = f1;
       f1 = max(f1, f2 + x);
-      f2 = new_f2;
+      f2 = nxt_f2;
     }
 
     return f1;

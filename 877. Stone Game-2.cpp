@@ -24,3 +24,24 @@ public:
     return dp[0][n - 1] > (prefix[n] - dp[0][n - 1]);
   }
 };
+
+class Solution {
+public:
+  bool stoneGame(vector<int> &piles) {
+    int n = piles.size();
+    vector<vector<int>> f(n, vector<int>(n, 0));
+
+    vector<int> pref(n + 1, 0);
+    for (int i = 1; i <= n; ++i)
+      pref[i] = pref[i - 1] + piles[i - 1];
+
+    for (int i = n - 1; i >= 0; --i) {
+      f[i][i] = piles[i];
+      for (int j = i + 1; j < n; ++j)
+        f[i][j] = max(piles[i] + (pref[j + 1] - pref[i + 1] - f[i + 1][j]),
+                      piles[j] + (pref[j] - pref[i] - f[i][j - 1]));
+    }
+
+    return f[0][n - 1] > pref[n] - f[0][n - 1];
+  }
+};
