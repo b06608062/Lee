@@ -1,3 +1,7 @@
+// mark
+// 1695
+// 先二分答案 T，然後對每個工人二分他能夠挖多少高度，最後加總看看能不能挖完山
+
 class Solution {
 public:
   long long minNumberOfSeconds(int mountainHeight, vector<int> &workerTimes) {
